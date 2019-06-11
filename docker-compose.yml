@@ -1,0 +1,19 @@
+version: '2.3'
+services:
+  jupyterlab:
+    build: .
+    image: shinn1r0/jupyterlab-gpu
+    ports:
+      - "8888:8888"
+    runtime: nvidia
+    volumes:
+      - "./datasets:/workspace/datasets"
+      - "./outputs:/workspace/outputs"
+      - "./notes:/workspace/notes"
+    working_dir: /workspace
+    privileged: true
+    environment:
+      PYTHONPATH: "/workspace"
+      TZ: Asia/Tokyo
+    restart: unless-stopped
+    command: jupyter lab
