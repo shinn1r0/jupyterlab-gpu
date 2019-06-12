@@ -2,7 +2,7 @@ ARG cuda_version="10.0"
 FROM nvidia/cuda:${cuda_version}-base
 LABEL maintainer="shinn1r0 <github@shinichironaito.com>"
 
-ARG anaconda_version="anaconda3-2019.03"
+ARG anaconda_version="miniconda3-latest"
 ARG python_version="3.7.3"
 ARG nodejs_version="12"
 ARG cica_version="v4.1.2"
@@ -28,13 +28,20 @@ RUN apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev lib
 
 RUN pyenv install ${anaconda_version} && pyenv global ${anaconda_version}
 RUN conda install -y python=${python_version}
-RUN conda install -y pytorch torchvision cudatoolkit=${cuda_version} -c pytorch
-RUN conda install -y ipyparallel pillow pyspark -c conda-forge
-RUN conda install -y autopep8 ipywidgets ipympl nbdime -c conda-forge
+RUN conda config --append channels conda-forge
+RUN conda config --add channels pytorch
+
+RUN conda install -y numpy scipy numba pandas dask matplotlib
+RUN conda install -y scikit-learn scikit-image bokeh pillow pyspark xlrd sympy
+RUN conda install -y ipython ipyparallel ipywidgets ipympl
+RUN conda install -y jupyter jupyterlab nbdime nbconvert nbformat
+RUN conda install -y beautifulsoup4 lxml jinja2 sphinx
+RUN conda install -y isort pep8 autopep8 flake8 pyflakes pylint jedi tqdm
+RUN conda install -y pytorch torchvision cudatoolkit=${cuda_version}
 RUN conda update --all -y
 RUN pip install -U pip setuptools pipenv
 RUN pip install -U kaggle tensorflow-gpu==2.0.0-beta0 tb-nightly
-RUN pip install -U jupyterlab_code_formatter jupyterlab-git jupyterlab_templates jupyterlab_latex
+RUN pip install -U jupyterlab_code_formatter jupyterlab-git jupyterlab_templates jupyterlab_latex jupyter-tensorboard
 
 RUN curl -sL https://deb.nodesource.com/setup_${nodejs_version}.x | bash -
 RUN apt-get install -y nodejs
@@ -59,21 +66,22 @@ COPY .jupyter ${HOME}/.jupyter
 RUN cat ${HOME}/.ipython/profile_default/ipython_config.py | sed -e "s/#c.InteractiveShellApp.exec_lines = \[\]/c.InteractiveShellApp.exec_lines = \['%matplotlib widget'\]/g" | tee ${HOME}/.ipython/profile_default/ipython_config.py
 
 RUN jupyter labextension install jupyterlab_vim
+RUN jupyter labextension install @jupyterlab/git
 RUN jupyter labextension install @lckr/jupyterlab_variableinspector
+RUN jupyter labextension install @krassowski/jupyterlab_go_to_definition
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+RUN jupyter labextension install jupyter-matplotlib
+RUN jupyter labextension install jupyterlab_voyager
+RUN jupyter labextension install jupyterlab-flake8
 RUN jupyter labextension install @jupyterlab/toc
 RUN jupyter labextension install @ryantam626/jupyterlab_code_formatter
 RUN jupyter labextension install jupyterlab_tensorboard
-RUN jupyter labextension install @jupyterlab/git
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-RUN jupyter labextension install jupyterlab_voyager
-RUN jupyter labextension install @krassowski/jupyterlab_go_to_definition
 RUN jupyter labextension install jupyterlab_templates
-RUN jupyter labextension install jupyter-matplotlib
-RUN jupyter labextension install @jupyterlab/katex-extension
 RUN jupyter labextension install @jupyterlab/latex
+RUN jupyter labextension install @jupyterlab/katex-extension
 RUN jupyter labextension install jupyterlab-drawio
 
-RUN jupyter serverextension enable --py jupyterlab_code_formatter
 RUN jupyter serverextension enable --py jupyterlab_git
+RUN jupyter serverextension enable --py jupyterlab_code_formatter
 RUN jupyter serverextension enable --py jupyterlab_templates
 RUN nbdime extensions --enable --system
