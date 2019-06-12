@@ -30,7 +30,7 @@ RUN pyenv install ${anaconda_version} && pyenv global ${anaconda_version}
 RUN conda install -y python=${python_version}
 RUN conda install -y pytorch torchvision cudatoolkit=${cuda_version} -c pytorch
 RUN conda install -y ipyparallel pillow pyspark -c conda-forge
-RUN conda install -y autopep8 ipympl nbdime -c conda-forge
+RUN conda install -y autopep8 ipywidgets ipympl nbdime -c conda-forge
 RUN conda update --all -y
 RUN pip install -U pip setuptools pipenv
 RUN pip install -U kaggle tensorflow-gpu==2.0.0-beta0 tb-nightly
