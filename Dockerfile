@@ -40,7 +40,7 @@ RUN conda install -y isort pep8 autopep8 flake8 pyflakes pylint jedi tqdm
 RUN conda install -y pytorch torchvision cudatoolkit=${cuda_version}
 RUN conda update --all -y
 RUN pip install -U pip setuptools pipenv
-RUN pip install -U kaggle tensorflow-gpu==2.0.0-beta0 tb-nightly
+RUN pip install -U kaggle tb-nightly
 RUN pip install -U jupyterlab_code_formatter jupyterlab-git jupyterlab_templates jupyterlab_latex jupyter-tensorboard
 
 RUN curl -sL https://deb.nodesource.com/setup_${nodejs_version}.x | bash -
