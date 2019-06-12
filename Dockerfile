@@ -76,4 +76,4 @@ RUN jupyter labextension install jupyterlab-drawio
 RUN jupyter serverextension enable --py jupyterlab_code_formatter
 RUN jupyter serverextension enable --py jupyterlab_git
 RUN jupyter serverextension enable --py jupyterlab_templates
-RUN jupyter serverextension enable --py nbdime --sys-prefix
+RUN nbdime extensions --enable --sys-prefix
