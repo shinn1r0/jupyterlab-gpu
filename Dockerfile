@@ -14,7 +14,7 @@ ENV HOME /root
 ENV PATH $HOME/miniconda/bin:$PATH
 
 RUN apt-get update && apt-get upgrade -y && \
-  apt-get install -y --no-install-recommends curl && \
+  apt-get install -y --no-install-recommends curl ca-certificates && \
   curl -sL https://deb.nodesource.com/setup_${nodejs_version}.x | bash - && \
   apt-get install -y --no-install-recommends git fontconfig unzip nodejs && \
   curl -L https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o ~/miniconda.sh && \
