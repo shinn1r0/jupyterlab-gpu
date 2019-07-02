@@ -38,7 +38,7 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN conda config --append channels conda-forge && \
   conda config --add channels pytorch && \
   conda install -y python=${python_version} \
-  numpy scipy numba pandas dask matplotlib \
+  numpy scipy numba pandas dask matplotlib numexpr \
   scikit-learn scikit-image bokeh pillow accimage pyspark xlrd sympy \
   ipython ipyparallel ipywidgets ipympl \
   jupyter jupyterlab nbdime nbconvert nbformat \
