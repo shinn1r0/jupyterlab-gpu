@@ -35,9 +35,8 @@ RUN apt-get update && apt-get upgrade -y && \
   apt-get purge -y curl unzip && \
   apt-get autoremove -y && apt-get autoclean -y
 
-RUN conda config --add channels conda-forge && \
+RUN conda config --append channels conda-forge && \
   conda config --add channels pytorch && \
-  conda config --set channel_priority strict && \
   conda install -y python=${python_version} \
   numpy scipy numba pandas dask matplotlib numexpr \
   scikit-learn scikit-image bokeh pillow accimage pyspark xlrd sympy \
@@ -45,10 +44,10 @@ RUN conda config --add channels conda-forge && \
   jupyter jupyterlab nbdime nbconvert nbformat \
   beautifulsoup4 lxml jinja2 sphinx \
   isort pep8 autopep8 flake8 pyflakes pylint jedi tqdm \
-  pytorch torchvision cudatoolkit=${cuda_version} && \
+  tensorboard pytorch torchvision cudatoolkit=${cuda_version} && \
   conda update --all -y && \
   conda clean --all && \
-  pip install -U pip kaggle tensorboard \
+  pip install -U pip kaggle \
   jupyterlab_code_formatter jupyterlab-git jupyterlab_templates jupyterlab_latex jupyter-tensorboard && \
   rm -rf ${HOME}/.cache/pip
 
