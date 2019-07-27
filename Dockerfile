@@ -2,9 +2,9 @@ ARG cuda_version="10.0"
 FROM nvidia/cuda:${cuda_version}-base
 LABEL maintainer="shinn1r0 <github@shinichironaito.com>"
 
-ARG python_version="3.7.3"
+ARG python_version="3.7.4"
 ARG nodejs_version="12"
-ARG cica_version="v4.1.2"
+ARG cica_version="v5.0.1"
 
 EXPOSE 8888
 ENV DEBIAN_FRONTEND noninteractive
