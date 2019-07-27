@@ -28,8 +28,8 @@ RUN apt-get update && apt-get upgrade -y && \
   rm NotoSansCJKjp-hinted.zip && \
   mkdir -p /usr/share/fonts/opentype/cica && \
   curl -LO https://github.com/miiton/Cica/releases/download/${cica_version}/Cica_${cica_version}_with_emoji.zip && \
-  unzip Cica_${cica_version}.zip -d /usr/share/fonts/opentype/cica && \
-  rm Cica_${cica_version}.zip && \
+  unzip Cica_${cica_version}_with_emoji.zip -d /usr/share/fonts/opentype/cica && \
+  rm Cica_${cica_version}_with_emoji.zip && \
   fc-cache -f && \
   rm -rf /var/lib/apt/lists/* && \
   apt-get purge -y curl unzip && \
