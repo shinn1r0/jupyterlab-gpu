@@ -64,7 +64,7 @@ RUN jupyter labextension install jupyterlab_vim && \
   jupyter labextension install @krassowski/jupyterlab_go_to_definition && \
   jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
   jupyter labextension install jupyter-matplotlib && \
-  #jupyter labextension install jupyterlab_voyager && \
+  jupyter labextension install jupyterlab_voyager && \
   jupyter labextension install @jupyterlab/toc && \
   jupyter labextension install @ryantam626/jupyterlab_code_formatter && \
   jupyter labextension install jupyterlab_tensorboard && \
